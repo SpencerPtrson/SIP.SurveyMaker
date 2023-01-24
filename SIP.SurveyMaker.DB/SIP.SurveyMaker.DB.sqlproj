@@ -80,5 +80,6 @@
     <None Include="PostDeploy\DefaultData\Question.sql" />
     <None Include="PostDeploy\DefaultData\Answer.sql" />
     <None Include="PostDeploy\DefaultData\QuestionAnswer.sql" />
+    <None Include="local.publish.xml" />
   </ItemGroup>
 </Project>
