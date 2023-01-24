@@ -1,0 +1,11 @@
+Installs with .Net6
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -version 5.0
+Install-Package Microsoft.EntityFrameworkCore.Tools -version 5.0
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -version 5.0
+
+Installs with .Net7
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=SIP.SurveyMaker.DB;Integrated Security=true" Microsoft.EntityFrameworkCore.SqlServer -Context ForceEntities -UseDatabaseNames -force
