@@ -1,9 +1,9 @@
 ﻿BEGIN
 	INSERT INTO dbo.tblQuestion (Id, Question)
 	VALUES
-		(NEWID(), 'Are you currently employed?'),
-		(NEWID(), 'What is your opinion of our company?'),
-		(NEWID(), 'How likely are you to use our services again?'),
-		(NEWID(), 'I feel valued at my company'),
-		(NEWID(), 'I feel valued at my company')
+		(NEWID(), 'Does fire need oxygen?'),
+		(NEWID(), 'What color is grass?'),
+		(NEWID(), 'Which season does Christmas take place in?'),
+		(NEWID(), 'Which state is FVTC in?'),
+		(NEWID(), 'Which state is DisneyWorld in?')
 END
