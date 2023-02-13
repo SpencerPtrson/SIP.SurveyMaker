@@ -90,5 +90,11 @@ namespace SIP.SurveyMaker.PL.Test
                 Assert.AreNotEqual(0, result);
             }
         }
+
+        [TestMethod]
+        public void LazyLoadingTest()
+        {
+            Assert.IsNotNull(dc.tblQuestionAnswers.FirstOrDefault().Answer);
+        }
     }
 }

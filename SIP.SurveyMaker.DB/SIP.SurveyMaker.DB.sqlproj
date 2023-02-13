@@ -62,6 +62,7 @@
     <Folder Include="StoredProcedures" />
     <Folder Include="ForeignKeys" />
     <Folder Include="Tables" />
+    <Folder Include="Functions" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploy\Script.PostDeployment1.sql" />
@@ -75,6 +76,8 @@
     <Build Include="Tables\tblQuestionAnswer.sql" />
     <Build Include="ForeignKeys\fkQuestionId.sql" />
     <Build Include="ForeignKeys\fkAnswerId.sql" />
+    <Build Include="Functions\fnQuestionId.sql" />
+    <Build Include="Functions\fnAnswerId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PostDeploy\DefaultData\Question.sql" />

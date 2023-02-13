@@ -1,25 +1,25 @@
 ﻿BEGIN
 	INSERT INTO dbo.tblQuestionAnswer (Id, QuestionId, AnswerId, IsCorrect)
 	VALUES
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Does fire need oxygen?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Yes'), 1),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Does fire need oxygen?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='No'), 0),
+		(NEWID(), dbo.fnQuestionId('Does fire need oxygen?'), dbo.fnAnswerId('Yes'), 1),
+		(NEWID(), dbo.fnQuestionId('Does fire need oxygen?'), dbo.fnAnswerId('No'), 0),
 
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='What color is grass?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Green'), 1),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='What color is grass?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Red'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='What color is grass?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Blue'), 0),
+		(NEWID(), dbo.fnQuestionId('What color is grass?'), dbo.fnAnswerId('Green'), 1),
+		(NEWID(), dbo.fnQuestionId('What color is grass?'), dbo.fnAnswerId('Red'), 0),
+		(NEWID(), dbo.fnQuestionId('What color is grass?'), dbo.fnAnswerId('Blue'), 0),
 
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which season does Christmas take place in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Spring'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which season does Christmas take place in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Summer'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which season does Christmas take place in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Fall'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which season does Christmas take place in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Winter'), 1),
+		(NEWID(), dbo.fnQuestionId('Which season does Christmas take place in?'), dbo.fnAnswerId('Spring'), 0),
+		(NEWID(), dbo.fnQuestionId('Which season does Christmas take place in?'), dbo.fnAnswerId('Summer'), 0),
+		(NEWID(), dbo.fnQuestionId('Which season does Christmas take place in?'), dbo.fnAnswerId('Fall'), 0),
+		(NEWID(), dbo.fnQuestionId('Which season does Christmas take place in?'), dbo.fnAnswerId('Winter'), 1),
 
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is FVTC in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Ohio'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is FVTC in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Michigan'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is FVTC in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Florida'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is FVTC in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Wisconsin'), 1),
+		(NEWID(), dbo.fnQuestionId('Which state is FVTC in?'), dbo.fnAnswerId('Ohio'), 0),
+		(NEWID(), dbo.fnQuestionId('Which state is FVTC in?'), dbo.fnAnswerId('Michigan'), 0),
+		(NEWID(), dbo.fnQuestionId('Which state is FVTC in?'), dbo.fnAnswerId('Florida'), 0),
+		(NEWID(), dbo.fnQuestionId('Which state is FVTC in?'), dbo.fnAnswerId('Wisconsin'), 1),
 
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is DisneyWorld in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Ohio'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is DisneyWorld in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Michigan'), 0),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is DisneyWorld in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Florida'), 1),
-		(NEWID(), (SELECT Id FROM dbo.tblQuestion WHERE Question='Which state is DisneyWorld in?'), (SELECT Id FROM dbo.tblAnswer WHERE Answer='Wisconsin'), 0)
+		(NEWID(), dbo.fnQuestionId('Which state is DisneyWorld in?'), dbo.fnAnswerId('Ohio'), 0),
+		(NEWID(), dbo.fnQuestionId('Which state is DisneyWorld in?'), dbo.fnAnswerId('Michigan'), 0),
+		(NEWID(), dbo.fnQuestionId('Which state is DisneyWorld in?'), dbo.fnAnswerId('Florida'), 1),
+		(NEWID(), dbo.fnQuestionId('Which state is DisneyWorld in?'), dbo.fnAnswerId('Wisconsin'), 0)
 END
