@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SIP.SurveyMaker.BL.Models\SIP.SurveyMaker.BL.Models.csproj" />
     <ProjectReference Include="..\SIP.SurveyMaker.BL\SIP.SurveyMaker.BL.csproj" />
   </ItemGroup>
 

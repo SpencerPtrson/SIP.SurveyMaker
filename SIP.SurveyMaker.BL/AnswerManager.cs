@@ -142,7 +142,13 @@ namespace SIP.SurveyMaker.BL
                     if (row != null)
                     {
                         if (rollback) transaction = dc.Database.BeginTransaction();
+
+                        foreach (tblQuestionAnswer qa in dc.tblQuestionAnswers.Where(qa => qa.AnswerId == id))
+                        {
+                            dc.tblQuestionAnswers.Remove(qa);
+                        }
                         dc.tblAnswers.Remove(row);
+
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }

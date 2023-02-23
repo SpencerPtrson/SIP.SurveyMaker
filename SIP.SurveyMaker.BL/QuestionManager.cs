@@ -163,7 +163,6 @@ namespace SIP.SurveyMaker.BL
                         {
                             dc.tblQuestionAnswers.Remove(qa);
                         }
-
                         dc.tblQuestions.Remove(row);
 
                         results = dc.SaveChanges();
