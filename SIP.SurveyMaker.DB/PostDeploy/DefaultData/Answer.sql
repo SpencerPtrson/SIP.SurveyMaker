@@ -1,5 +1,5 @@
 ﻿BEGIN
-	INSERT INTO dbo.tblAnswer (Id, Answer)
+	INSERT INTO dbo.tblAnswer (Id, Text)
 	VALUES
 		(NEWID(), 'Yes'),
 		(NEWID(), 'No'),

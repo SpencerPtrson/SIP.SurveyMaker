@@ -85,4 +85,7 @@
     <None Include="PostDeploy\DefaultData\QuestionAnswer.sql" />
     <None Include="local.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SIP.SurveyMaker.DB.refactorlog" />
+  </ItemGroup>
 </Project>

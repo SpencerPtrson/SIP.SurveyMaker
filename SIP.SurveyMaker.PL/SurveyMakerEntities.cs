@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SIP.SurveyMaker.PL;
 
-public partial class SurveyEntities : DbContext
+public partial class SurveyMakerEntities : DbContext
 {
-    public SurveyEntities()
+    public SurveyMakerEntities()
     {
     }
 
-    public SurveyEntities(DbContextOptions<SurveyEntities> options)
+    public SurveyMakerEntities(DbContextOptions<SurveyMakerEntities> options)
         : base(options)
     {
     }
@@ -29,31 +29,31 @@ public partial class SurveyEntities : DbContext
     {
         modelBuilder.Entity<tblAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblAnswe__3214EC07591D7527");
+            entity.HasKey(e => e.Id).HasName("PK__tblAnswe__3214EC079DF80874");
 
             entity.ToTable("tblAnswer");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Answer)
+            entity.Property(e => e.Text)
                 .HasMaxLength(250)
                 .IsUnicode(false);
         });
 
         modelBuilder.Entity<tblQuestion>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblQuest__3214EC07709D4961");
+            entity.HasKey(e => e.Id).HasName("PK__tblQuest__3214EC07BDCF30BA");
 
             entity.ToTable("tblQuestion");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Question)
+            entity.Property(e => e.Text)
                 .HasMaxLength(250)
                 .IsUnicode(false);
         });
 
         modelBuilder.Entity<tblQuestionAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblQuest__3214EC078B6E6B19");
+            entity.HasKey(e => e.Id).HasName("PK__tblQuest__3214EC07FE641618");
 
             entity.ToTable("tblQuestionAnswer");
 

@@ -5,13 +5,13 @@ namespace SIP.SurveyMaker.PL.Test
     [TestClass]
     public class utQuestion
     {
-        protected SurveyEntities dc;
+        protected SurveyMakerEntities dc;
         protected IDbContextTransaction transaction;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            dc = new SurveyEntities();
+            dc = new SurveyMakerEntities();
             transaction = dc.Database.BeginTransaction();
         }
 
@@ -37,7 +37,7 @@ namespace SIP.SurveyMaker.PL.Test
             tblQuestion newrow = new tblQuestion()
             {
                 Id = Guid.NewGuid(),
-                Question = "Test Question"
+                Text = "Test Question"
             };
 
             dc.tblQuestions.Add(newrow);
@@ -53,13 +53,13 @@ namespace SIP.SurveyMaker.PL.Test
             // Select * from tblQuestion where Question = "Which state is Florida in?"
 
             tblQuestion row = (from q in dc.tblQuestions
-                               where q.Question == "Which state is Florida in?"
+                               where q.Text == "Which state is Florida in?"
                                select q).FirstOrDefault();
 
             if (row != null )
             {
                 // Change properties
-                row.Question = "Which state is Chicago in?";
+                row.Text = "Which state is Chicago in?";
 
                 // Update the row
                 int result = dc.SaveChanges();
@@ -72,7 +72,7 @@ namespace SIP.SurveyMaker.PL.Test
         public void DeleteTest()
         {
             tblQuestion row = (from q in dc.tblQuestions
-                               where q.Question == "Which state is Florida in?"
+                               where q.Text == "Which state is Florida in?"
                                select q).FirstOrDefault();
 
             if (row != null)

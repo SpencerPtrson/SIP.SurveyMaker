@@ -6,13 +6,13 @@ namespace SIP.SurveyMaker.PL.Test
     [TestClass]
     public class utQuestionAnswer
     {
-        protected SurveyEntities dc;
+        protected SurveyMakerEntities dc;
         protected IDbContextTransaction transaction;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            dc = new SurveyEntities();
+            dc = new SurveyMakerEntities();
             transaction = dc.Database.BeginTransaction();
         }
 
@@ -39,8 +39,8 @@ namespace SIP.SurveyMaker.PL.Test
             tblQuestionAnswer newrow = new tblQuestionAnswer()
             {
                 Id = Guid.NewGuid(),
-                QuestionId = (from q in dc.tblQuestions where q.Question == "Which state is FVTC in?" select q.Id).FirstOrDefault(),
-                AnswerId = (from a in dc.tblAnswers where a.Answer == "No" select a.Id).FirstOrDefault()
+                QuestionId = (from q in dc.tblQuestions where q.Text == "Which state is FVTC in?" select q.Id).FirstOrDefault(),
+                AnswerId = (from a in dc.tblAnswers where a.Text == "No" select a.Id).FirstOrDefault()
             };
 
             dc.tblQuestionAnswers.Add(newrow);
@@ -54,13 +54,13 @@ namespace SIP.SurveyMaker.PL.Test
         {
 
             tblQuestionAnswer row = (from qa in dc.tblQuestionAnswers
-                                     where qa.QuestionId == (from q in dc.tblQuestions where q.Question == "Which state is Florida in?" select q.Id).FirstOrDefault()
-                                     && qa.AnswerId == (from a in dc.tblAnswers where a.Answer == "Ohio" select a.Id).FirstOrDefault()
+                                     where qa.QuestionId == (from q in dc.tblQuestions where q.Text == "Which state is Florida in?" select q.Id).FirstOrDefault()
+                                     && qa.AnswerId == (from a in dc.tblAnswers where a.Text == "Ohio" select a.Id).FirstOrDefault()
                                      select qa).FirstOrDefault();
 
             if (row != null)
             {
-                Guid aId = (from a in dc.tblAnswers where a.Answer == "Michigan" select a.Id).FirstOrDefault();
+                Guid aId = (from a in dc.tblAnswers where a.Text == "Michigan" select a.Id).FirstOrDefault();
                 // Change properties
                 row.AnswerId = aId;
 
@@ -77,8 +77,8 @@ namespace SIP.SurveyMaker.PL.Test
         public void DeleteTest()
         {
             tblQuestionAnswer row = (from qa in dc.tblQuestionAnswers
-                                        where qa.QuestionId == (from q in dc.tblQuestions where q.Question == "Which state is Florida in?" select q.Id).FirstOrDefault()
-                                        && qa.AnswerId == (from a in dc.tblAnswers where a.Answer == "Ohio" select a.Id).FirstOrDefault()
+                                        where qa.QuestionId == (from q in dc.tblQuestions where q.Text == "Which state is Florida in?" select q.Id).FirstOrDefault()
+                                        && qa.AnswerId == (from a in dc.tblAnswers where a.Text == "Ohio" select a.Id).FirstOrDefault()
                                         select qa).FirstOrDefault();
 
             if (row != null)

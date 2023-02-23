@@ -1,5 +1,5 @@
 ﻿BEGIN
-	INSERT INTO dbo.tblQuestion (Id, Question)
+	INSERT INTO dbo.tblQuestion (Id, Text)
 	VALUES
 		(NEWID(), 'Does fire need oxygen?'),
 		(NEWID(), 'What color is grass?'),

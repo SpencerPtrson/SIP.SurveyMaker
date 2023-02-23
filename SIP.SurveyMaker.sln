@@ -5,16 +5,18 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SIP.SurveyMaker.DB", "SIP.SurveyMaker.DB\SIP.SurveyMaker.DB.sqlproj", "{91BA03C8-796F-487C-AF47-3AD9786E19DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.PL", "SIP.SurveyMaker.PL\SIP.SurveyMaker.PL.csproj", "{A16B990E-F6BA-4040-87B1-709A37B8B6FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.PL", "SIP.SurveyMaker.PL\SIP.SurveyMaker.PL.csproj", "{A16B990E-F6BA-4040-87B1-709A37B8B6FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.PL.Test", "SIP.SurveyMaker.PL.Test\SIP.SurveyMaker.PL.Test.csproj", "{D0E7D113-7403-4C07-BBFA-D23DA0FC07E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.PL.Test", "SIP.SurveyMaker.PL.Test\SIP.SurveyMaker.PL.Test.csproj", "{D0E7D113-7403-4C07-BBFA-D23DA0FC07E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.BL.Models", "SIP.SurveyMaker.BL.Models\SIP.SurveyMaker.BL.Models.csproj", "{792C7311-B5ED-47CD-9444-D990351A67C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.BL.Models", "SIP.SurveyMaker.BL.Models\SIP.SurveyMaker.BL.Models.csproj", "{792C7311-B5ED-47CD-9444-D990351A67C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{85773119-AAAB-4A4B-995C-07CFDF97E6A0}"
 	ProjectSection(SolutionItems) = preProject
 		TextFile1.txt = TextFile1.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.BL", "SIP.SurveyMaker.BL\SIP.SurveyMaker.BL.csproj", "{E6BCD7EF-0D89-4060-AF22-35308F46FE71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{792C7311-B5ED-47CD-9444-D990351A67C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{792C7311-B5ED-47CD-9444-D990351A67C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{792C7311-B5ED-47CD-9444-D990351A67C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6BCD7EF-0D89-4060-AF22-35308F46FE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6BCD7EF-0D89-4060-AF22-35308F46FE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6BCD7EF-0D89-4060-AF22-35308F46FE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6BCD7EF-0D89-4060-AF22-35308F46FE71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

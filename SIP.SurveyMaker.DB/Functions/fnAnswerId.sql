@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION fnAnswerId (@Answer VARCHAR(50))
+﻿CREATE FUNCTION fnAnswerId (@Text VARCHAR(50))
 	RETURNS UNIQUEIDENTIFIER AS BEGIN
-		RETURN (SELECT Id FROM dbo.tblAnswer WHERE Answer = @Answer)
+		RETURN (SELECT Id FROM dbo.tblAnswer WHERE Text = @Text)
 END

@@ -9,4 +9,4 @@ Install-Package Microsoft.EntityFrameworkCore.Tools
 Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 REMEMBER TO CHANGE THE ENTITY FRAMEWORK CLASS NAME - In this line, "ForceEntities" becomes the file name by default
-Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=SIP.SurveyMaker.DB;Integrated Security=true" Microsoft.EntityFrameworkCore.SqlServer -Context SurveyEntities -UseDatabaseNames -force
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=SIP.SurveyMaker.DB;Integrated Security=true" Microsoft.EntityFrameworkCore.SqlServer -Context SurveyMakerEntities -UseDatabaseNames -force
