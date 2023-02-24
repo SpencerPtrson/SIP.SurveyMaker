@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SIP.SurveyMaker.WPFUI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MaintainSurvey.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MaintainSurvey : Window
     {
-        public MainWindow()
+        public MaintainSurvey()
         {
             InitializeComponent();
         }
