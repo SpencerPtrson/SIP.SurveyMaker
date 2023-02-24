@@ -55,6 +55,15 @@ namespace SIP.SurveyMaker.WPFUI
             cboText.SelectedIndex = index;
         }
 
+        private void cboText_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Answer answer = Answers[cboText.SelectedIndex];
+            if (answer != null)
+            {
+                SetAnswer(answer.Id);
+            }
+        }
+
         //private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         //{
         //    if (cboText.SelectedIndex!= -1)

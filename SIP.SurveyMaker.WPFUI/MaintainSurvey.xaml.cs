@@ -38,7 +38,7 @@ namespace SIP.SurveyMaker.WPFUI
         {
             // Load question list as combobox source
             cboQuestions.ItemsSource = null;
-            questions = (List<Question>)await QuestionManager.Load();
+            questions = await QuestionManager.Load();
             cboQuestions.ItemsSource = questions;
             cboQuestions.DisplayMemberPath = "Text";
             cboQuestions.SelectedValuePath = "Id";
@@ -76,6 +76,7 @@ namespace SIP.SurveyMaker.WPFUI
         private void btnAddQuestions_Click(object sender, RoutedEventArgs e)
         {
             new MaintainText(ScreenMode.Question).ShowDialog();
+            Reload();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -85,7 +86,7 @@ namespace SIP.SurveyMaker.WPFUI
 
         private async void LoadAnswers(Guid QuestionId)
         {
-            qaSet = (List<Answer>)await AnswerManager.LoadById(QuestionId);
+            qaSet = await AnswerManager.LoadById(QuestionId);
 
 
             for (int i = 0; i < qaSet.Count; i++)
@@ -94,19 +95,32 @@ namespace SIP.SurveyMaker.WPFUI
             }
         }
 
-        private void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadAnswers(questions[cboQuestions.SelectedIndex].Id);
+            if(cboQuestions.SelectedIndex > -1)
+                LoadAnswers(questions[cboQuestions.SelectedIndex].Id);
         }
 
-        private async void RebindQuestions()
+        private async void Reload()
         {
             cboQuestions.ItemsSource = null;
-            questions = (List<Question>)await QuestionManager.Load();
+            questions = await QuestionManager.Load();
             cboQuestions.ItemsSource = questions;
             cboQuestions.DisplayMemberPath = "Text";
             cboQuestions.SelectedValuePath = "Id";
             cboQuestions.SelectedIndex = questions.Count - 1;
+
+            answers = await AnswerManager.Load();
+
+            foreach (ucMaintainQA ucAnswer in ucMaintainQAs)
+            {
+                ucAnswer.cboText.ItemsSource = null;
+                ucAnswer.cboText.ItemsSource = answers;
+                ucAnswer.cboText.DisplayMemberPath = "Text";
+                ucAnswer.cboText.SelectedValuePath = "Id";
+            }
+            LoadAnswers(questions[cboQuestions.SelectedIndex].Id);
+
         }
     }
 }

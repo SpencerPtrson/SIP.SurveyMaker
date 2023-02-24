@@ -155,11 +155,11 @@ namespace SIP.SurveyMaker.WPFUI
             switch (screenMode)
             {
                 case ScreenMode.Question:
-                    questions = (List<Question>)await QuestionManager.Load();
+                    questions = await QuestionManager.Load();
                     cboText.ItemsSource = questions;
                     break;
                 case ScreenMode.Answer:
-                    answers = (List<Answer>)await AnswerManager.Load();
+                    answers = await AnswerManager.Load();
                     cboText.ItemsSource = answers;
                     break;
             }
