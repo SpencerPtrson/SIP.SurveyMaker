@@ -20,6 +20,7 @@
             Stretch="Fill"
             HorizontalAlignment="Left" 
             Source="/delete.jpg"
+            MouseLeftButtonDown="imgDelete_MouseLeftButtonDown"
             />
         <RadioButton
             x:Name="rbIsCorrect"

@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIP.SurveyMaker.WPFUI"
         mc:Ignorable="d"
-        Title="Maintain Survey" Height="450" Width="800">
-    <Grid>
+        Title="Maintain Survey" Height="350" Width="475">
+    <Grid x:Name="grdSurvey" Height="335" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF5B5B5B"/>
+                <GradientStop Color="#FFF19547" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="btnAddAnswer" Content="Add Answers" HorizontalAlignment="Left" Margin="82,255,0,0" VerticalAlignment="Top" Height="30" Width="100" Click="btnAddAnswer_Click"/>
+        <Button x:Name="btnAddQuestions" Content="Add Questions" HorizontalAlignment="Left" Margin="188,255,0,50" Width="100" RenderTransformOrigin="0.18,0.501" Click="btnAddQuestions_Click"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="292,255,0,0" VerticalAlignment="Top" Height="30" Width="100" RenderTransformOrigin="0.77,0.668" Click="btnSave_Click" />
+        <TextBlock Foreground="AliceBlue"  HorizontalAlignment="Left" Margin="40,58,0,0" TextWrapping="Wrap" Text="Choose a question and then select the correct answer." VerticalAlignment="Top" Width="150" Height="32"/>
+        <Label FontSize="20" Foreground="AliceBlue" Content="Enter a Question" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="35" Width="156"/>
+        <ComboBox x:Name="cboQuestions" HorizontalAlignment="Left" Margin="205,56,0,0" VerticalAlignment="Top" Width="235" Height="34" SelectionChanged="cboQuestions_SelectionChanged"/>
 
     </Grid>
 </Window>
