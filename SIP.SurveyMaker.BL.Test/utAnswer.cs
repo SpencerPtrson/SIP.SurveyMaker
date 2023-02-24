@@ -18,6 +18,17 @@ namespace SIP.SurveyMaker.BL.Test
         }
 
         [Test]
+        public async Task LoadByIdTest()
+        {
+            List<Question> questions = await QuestionManager.Load();
+            Question question = questions.FirstOrDefault(c => c.Text == "Does fire need oxygen?");
+
+            var task = await AnswerManager.LoadById(question.Id);
+            List<Answer> answers = task;
+            Assert.AreEqual(2, answers.ToList().Count);
+        }
+
+        [Test]
         public async Task InsertTest()
         {
             int results = await AnswerManager.Insert(new Answer { Text = "Testing" }, true);

@@ -36,24 +36,34 @@ namespace SIP.SurveyMaker.BL
             }
         }
 
-        public async static Task<Answer> LoadById(Guid id)
+        public async static Task<List<Answer>> LoadById(Guid QuestionId)
         {
             try
             {
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
-                {
-                    tblAnswer tblAnswer = dc.tblAnswers.Where(c => c.Id == id).FirstOrDefault();
-                    Answer answer = new Answer();
+                List<Answer> answers = new List<Answer>();
 
-                    if (tblAnswer != null)
+                await Task.Run(() =>
+                {
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        answer.Id = tblAnswer.Id;
-                        answer.Text = tblAnswer.Text;
-                        return answer;
+                        // Get a list of question / answer pairs with the given question id
+                        List<tblQuestionAnswer> tblQuestionAnswers = dc.tblQuestionAnswers.Where(c => c.QuestionId == QuestionId).ToList();
+
+                        // Iterate through that list and add the corresponding tblAnswer value to "answers"
+                        foreach (tblQuestionAnswer qa in tblQuestionAnswers)
+                        {
+                            tblAnswer tblAnswer = dc.tblAnswers.Where(d => d.Id == qa.AnswerId).FirstOrDefault();
+                            Answer answer = new Answer()
+                            {
+                                Id = tblAnswer.Id,
+                                Text = tblAnswer.Text
+                            };
+                            answers.Add(answer);
+                        } 
                     }
-                    else
-                        throw new Exception("Could not find the row");
-                }
+                });
+                return answers;
+
             }
             catch (Exception ex)
             {

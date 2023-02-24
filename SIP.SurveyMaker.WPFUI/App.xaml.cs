@@ -30,13 +30,11 @@ namespace SIP.SurveyMaker.WPFUI
             var configSettings = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json").Build();
             Configuration = configSettings;
-            services.AddSingleton<VehicleList>();
         }
 
         private void OnStartUp(object sender, StartupEventArgs e)
         {
-            var VehicleList = serviceProvider.GetService<VehicleList>();
-            VehicleList.Show();
+
         }
     }
 }
