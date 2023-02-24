@@ -55,10 +55,16 @@ namespace SIP.SurveyMaker.WPFUI
             cboText.SelectedIndex = index;
         }
 
-        private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            AnswerManager.Delete(Answers[cboText.SelectedIndex].Id);
-            Reload();
-        }
+        //private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (cboText.SelectedIndex!= -1)
+        //    {
+        //        Task.Run(async () =>
+        //        {
+        //            int results = await QuestionAnswerManager.Delete(cboText);
+        //        });
+        //    }
+        //    Reload();
+        //}
     }
 }

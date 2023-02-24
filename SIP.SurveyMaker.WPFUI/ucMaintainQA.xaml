@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="260">
     <Grid>
+        <RadioButton
+            x:Name="rbIsCorrect"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center"
+            Margin="5,0,0,0" 
+            />
         <ComboBox
             x:Name="cboText"
             Margin="25,0,0,0"
@@ -16,17 +22,11 @@
         <Image
             x:Name="imgDelete"
             Width="28"
-            Margin="217,4,0,4"
+            Height="28"
+            Margin="217,1,0,1"
             Stretch="Fill"
             HorizontalAlignment="Left" 
             Source="/delete.jpg"
-            MouseLeftButtonDown="imgDelete_MouseLeftButtonDown"
-            />
-        <RadioButton
-            x:Name="rbIsCorrect"
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Center"
-            Margin="5,0,0,0" 
             />
 
     </Grid>

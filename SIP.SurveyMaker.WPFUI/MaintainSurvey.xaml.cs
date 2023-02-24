@@ -70,6 +70,7 @@ namespace SIP.SurveyMaker.WPFUI
         private void btnAddAnswer_Click(object sender, RoutedEventArgs e)
         {
             new MaintainText(ScreenMode.Answer).ShowDialog();
+
         }
 
         private void btnAddQuestions_Click(object sender, RoutedEventArgs e)
@@ -84,7 +85,8 @@ namespace SIP.SurveyMaker.WPFUI
 
         private async void LoadAnswers(Guid QuestionId)
         {
-            qaSet = (List<Answer>)await AnswerManager.LoadById(questions[cboQuestions.SelectedIndex].Id);
+            qaSet = (List<Answer>)await AnswerManager.LoadById(QuestionId);
+
 
             for (int i = 0; i < qaSet.Count; i++)
             {
@@ -95,6 +97,16 @@ namespace SIP.SurveyMaker.WPFUI
         private void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadAnswers(questions[cboQuestions.SelectedIndex].Id);
+        }
+
+        private async void RebindQuestions()
+        {
+            cboQuestions.ItemsSource = null;
+            questions = (List<Question>)await QuestionManager.Load();
+            cboQuestions.ItemsSource = questions;
+            cboQuestions.DisplayMemberPath = "Text";
+            cboQuestions.SelectedValuePath = "Id";
+            cboQuestions.SelectedIndex = questions.Count - 1;
         }
     }
 }

@@ -45,6 +45,9 @@ namespace SIP.SurveyMaker.WPFUI
             cboText.SelectedValuePath = "Id";
             this.Title = "Maintain " + screenMode.ToString() + "s";
             lblQA.Content = screenMode.ToString() + "s";
+
+            btnUpdate.IsEnabled = false;
+            btnDelete.IsEnabled = false;
         }
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
@@ -52,7 +55,7 @@ namespace SIP.SurveyMaker.WPFUI
             switch (screenMode)
             {
                 case ScreenMode.Question:
-                    Question question = new Question() { Text = cboText.Text };
+                    Question question = new Question() { Text = txtText.Text };
                     Task.Run(async () =>
                     {
                         int results = await QuestionManager.Insert(question);
@@ -61,7 +64,7 @@ namespace SIP.SurveyMaker.WPFUI
                     Rebind(questions.Count- 1);
                     break;
                 case ScreenMode.Answer:
-                    Answer answer = new Answer() { Text = cboText.Text };
+                    Answer answer = new Answer() { Text = txtText.Text };
                     Task.Run(async () =>
                     {
                         int results = await AnswerManager.Insert(answer);
@@ -78,7 +81,7 @@ namespace SIP.SurveyMaker.WPFUI
             {
                 case ScreenMode.Question:
                     Question question = questions[cboText.SelectedIndex];
-                    question.Text = cboText.Text;
+                    question.Text = txtText.Text;
                     Task.Run(async () =>
                     {
                         int results = await QuestionManager.Update(question);
@@ -87,7 +90,7 @@ namespace SIP.SurveyMaker.WPFUI
                     break;
                 case ScreenMode.Answer:
                     Answer answer = answers[cboText.SelectedIndex];
-                    answer.Text = cboText.Text;
+                    answer.Text = txtText.Text;
                     Task.Run(async () =>
                     {
                         int results = await AnswerManager.Update(answer);
@@ -124,6 +127,17 @@ namespace SIP.SurveyMaker.WPFUI
 
         private void cboText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cboText.SelectedIndex > -1)
+            {
+                btnUpdate.IsEnabled = true;
+                btnDelete.IsEnabled = true;
+            }
+            else
+            {
+                btnUpdate.IsEnabled = false;
+                btnDelete.IsEnabled = false;
+            }
+
             txtText.Text = string.Empty;
             if (cboText.SelectedIndex > -1)
             {
@@ -133,7 +147,6 @@ namespace SIP.SurveyMaker.WPFUI
                     txtText.Text = answers[cboText.SelectedIndex].Text;
             }
         }
-
 
         private async void Reload()
         {
