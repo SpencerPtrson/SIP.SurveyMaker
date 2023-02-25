@@ -81,7 +81,25 @@ namespace SIP.SurveyMaker.WPFUI
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                Task.Run(async () =>
+                {
+                    Question question = questions[cboQuestions.SelectedIndex];
+                    List<Answer> answers = await AnswerManager.Load();
+                    
+                    foreach(ucMaintainQA ucAnswer in ucMaintainQAs)
+                    {
+                        Answer answer = answers[ucAnswer.cboText.SelectedIndex];
+                        bool isCorrect = answer.IsCorrect;
+                        QuestionAnswerManager.Insert(question, answer, isCorrect);
+                    }
+                });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private async void LoadAnswers(Guid QuestionId)

@@ -35,7 +35,7 @@ namespace SIP.SurveyMaker.WPFUI
         private async void Reload()
         {
             cboText.ItemsSource = null;
-            Answers = (List<Answer>)await AnswerManager.Load();
+            Answers = await AnswerManager.Load();
             cboText.ItemsSource = Answers;
             cboText.DisplayMemberPath = "Text";
             cboText.SelectedValuePath = "Id";
