@@ -87,7 +87,17 @@ namespace SIP.SurveyMaker.WPFUI
                 {
                     Question question = questions[cboQuestions.SelectedIndex];
                     List<Answer> answers = await AnswerManager.Load();
+
+                    // Delete pre-existing question answer pairs
+                    foreach(ucMaintainQA ucAnswer in ucMaintainQAs)
+                    {
+                        if (ucAnswer.cboText.SelectedIndex > 0)
+                        {
+                            int results = await QuestionAnswerManager.Delete(question.Id, answers[ucAnswer.cboText.SelectedIndex].Id);
+                        }
+                    }
                     
+                    // Insert new QA 
                     foreach(ucMaintainQA ucAnswer in ucMaintainQAs)
                     {
                         Answer answer = answers[ucAnswer.cboText.SelectedIndex];
