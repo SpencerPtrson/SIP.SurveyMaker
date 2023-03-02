@@ -56,14 +56,14 @@ namespace SIP.SurveyMaker.BL
                             Answer answer = new Answer()
                             {
                                 Id = tblAnswer.Id,
-                                Text = tblAnswer.Text
+                                Text = tblAnswer.Text,
+                                IsCorrect = qa.IsCorrect
                             };
                             answers.Add(answer);
                         } 
                     }
                 });
                 return answers;
-
             }
             catch (Exception ex)
             {

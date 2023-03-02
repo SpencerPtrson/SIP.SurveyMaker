@@ -70,7 +70,7 @@ namespace SIP.SurveyMaker.WPFUI
         private void btnAddAnswer_Click(object sender, RoutedEventArgs e)
         {
             new MaintainText(ScreenMode.Answer).ShowDialog();
-
+            Reload();
         }
 
         private void btnAddQuestions_Click(object sender, RoutedEventArgs e)
@@ -102,25 +102,6 @@ namespace SIP.SurveyMaker.WPFUI
             }
         }
 
-        private async void LoadAnswers(Guid QuestionId)
-        {
-            qaSet = await AnswerManager.LoadById(QuestionId);
-
-            for (int i = 0; i < ucMaintainQAs.Length; i++)
-            {
-                if (i < qaSet.Count)
-                    ucMaintainQAs[i].SetAnswer(qaSet[i].Id);
-                else
-                    ucMaintainQAs[i].cboText.SelectedIndex = -1;
-            }
-
-
-            //for (int i = 0; i < qaSet.Count; i++)
-            //{
-            //    ucMaintainQAs[i].SetAnswer(qaSet[i].Id);
-            //}
-        }
-
         private async void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(cboQuestions.SelectedIndex > -1)
@@ -146,7 +127,25 @@ namespace SIP.SurveyMaker.WPFUI
                 ucAnswer.cboText.SelectedValuePath = "Id";
             }
             LoadAnswers(questions[cboQuestions.SelectedIndex].Id);
+        }
 
+        private async void LoadAnswers(Guid QuestionId)
+        {
+            qaSet = await AnswerManager.LoadById(QuestionId);
+
+            for (int i = 0; i < ucMaintainQAs.Length; i++)
+            {
+                if (i < qaSet.Count)
+                {
+                    ucMaintainQAs[i].DisplayAnswer(qaSet[i].Id);
+                    ucMaintainQAs[i].rbIsCorrect.IsChecked = qaSet[i].IsCorrect;
+                }    
+                else
+                {
+                    ucMaintainQAs[i].cboText.SelectedIndex = -1;
+                    ucMaintainQAs[i].rbIsCorrect.IsChecked = false;
+                }              
+            }
         }
     }
 }

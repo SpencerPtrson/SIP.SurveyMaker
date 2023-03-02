@@ -25,24 +25,42 @@ namespace SIP.SurveyMaker.WPFUI
         public List<Question> Questions { get; set; }
         public List<Answer> Answers { get; set; }
 
+        // This control should only have a single question Id sent to it as a parameter
+
         public ucMaintainQA()
         {
             InitializeComponent();
             Reload();
         }
 
-        // Get control mode (whatever attribute the control is meant to get data for) and load appropriate data
         private async void Reload()
         {
             cboText.ItemsSource = null;
+            rbIsCorrect.IsChecked = false;
             Answers = await AnswerManager.Load();
             cboText.ItemsSource = Answers;
             cboText.DisplayMemberPath = "Text";
             cboText.SelectedValuePath = "Id";
         }
 
-        public async void SetAnswer(Guid AnswerId)
+        private void cboText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            if (cboText.SelectedIndex > -1)
+            {
+                ReloadAnswerList();
+
+                Answer answer = Answers[cboText.SelectedIndex];
+                if (answer != null)
+                {
+                    DisplayAnswer(answer.Id);
+                }
+            }
+        }
+
+        public async void DisplayAnswer(Guid AnswerId)
+        {
+
             int index = 0;
             for (int i = 0; i < Answers.Count; i++)
             {
@@ -55,17 +73,11 @@ namespace SIP.SurveyMaker.WPFUI
             cboText.SelectedIndex = index;
         }
 
-        private void cboText_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public async void ReloadAnswerList()
         {
-            if (cboText.SelectedIndex > -1)
-            {
-                Answer answer = Answers[cboText.SelectedIndex];
-                if (answer != null)
-                {
-                    SetAnswer(answer.Id);
-                }
-            }
+            Answers = await AnswerManager.Load();
         }
+
 
         //private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         //{
