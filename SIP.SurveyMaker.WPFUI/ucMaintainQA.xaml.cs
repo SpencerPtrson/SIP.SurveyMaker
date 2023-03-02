@@ -57,10 +57,13 @@ namespace SIP.SurveyMaker.WPFUI
 
         private void cboText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Answer answer = Answers[cboText.SelectedIndex];
-            if (answer != null)
+            if (cboText.SelectedIndex > -1)
             {
-                SetAnswer(answer.Id);
+                Answer answer = Answers[cboText.SelectedIndex];
+                if (answer != null)
+                {
+                    SetAnswer(answer.Id);
+                }
             }
         }
 

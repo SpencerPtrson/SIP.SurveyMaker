@@ -106,11 +106,19 @@ namespace SIP.SurveyMaker.WPFUI
         {
             qaSet = await AnswerManager.LoadById(QuestionId);
 
-
-            for (int i = 0; i < qaSet.Count; i++)
+            for (int i = 0; i < ucMaintainQAs.Length; i++)
             {
-                ucMaintainQAs[i].SetAnswer(qaSet[i].Id);
+                if (i < qaSet.Count)
+                    ucMaintainQAs[i].SetAnswer(qaSet[i].Id);
+                else
+                    ucMaintainQAs[i].cboText.SelectedIndex = -1;
             }
+
+
+            //for (int i = 0; i < qaSet.Count; i++)
+            //{
+            //    ucMaintainQAs[i].SetAnswer(qaSet[i].Id);
+            //}
         }
 
         private async void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)

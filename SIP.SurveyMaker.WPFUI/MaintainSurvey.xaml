@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIP.SurveyMaker.WPFUI"
         mc:Ignorable="d"
-        Title="Maintain Survey" Height="350" Width="475">
+        Title="Maintain Survey" Height="350" Width="475" WindowStartupLocation="CenterScreen">
     <Grid x:Name="grdSurvey" Height="335" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
