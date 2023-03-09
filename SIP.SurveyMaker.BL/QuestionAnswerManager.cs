@@ -15,59 +15,58 @@ namespace SIP.SurveyMaker.BL
         {
             try
             {
-                IDbContextTransaction transaction = null;
+                int results = 0;
 
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                await Task.Run(() =>
                 {
-                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    IDbContextTransaction transaction = null;
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                    {
+                        if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblQuestionAnswer newrow = new tblQuestionAnswer();
-                    newrow.Id = Guid.NewGuid();
-                    newrow.QuestionId = question.Id;
-                    newrow.AnswerId = answer.Id;
-                    newrow.IsCorrect = isCorrect;
+                        tblQuestionAnswer newrow = new tblQuestionAnswer();
+                        newrow.Id = Guid.NewGuid();
+                        newrow.QuestionId = question.Id;
+                        newrow.AnswerId = answer.Id;
+                        newrow.IsCorrect = isCorrect;
 
-                    dc.tblQuestionAnswers.Add(newrow);
-                    int results = dc.SaveChanges();
-
-                    if (rollback) transaction.Rollback();
-
-                    return results;
-                }
+                        dc.tblQuestionAnswers.Add(newrow);
+                        results = dc.SaveChanges();
+                        if (rollback) transaction.Rollback();
+                    }
+                });
+                return results;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public async static Task<int> Delete(Guid QuestionId, Guid AnswerId, bool rollback = false)
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblQuestionAnswer row = dc.tblQuestionAnswers.FirstOrDefault(c => c.QuestionId == QuestionId && c.AnswerId == AnswerId);
-                    int results = 0;
-
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
-                        dc.tblQuestionAnswers.Remove(row);
+                        tblQuestionAnswer row = dc.tblQuestionAnswers.FirstOrDefault(c => c.QuestionId == QuestionId && c.AnswerId == AnswerId);
+                        int results = 0;
 
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
+                            dc.tblQuestionAnswers.Remove(row);
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+                        }
+                        else
+                            throw new Exception("Row was not found.");
                     }
-                    else
-                        throw new Exception("Row was not found.");
-                    return results;
-                }
+                });
+                return results;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
     }
 }
