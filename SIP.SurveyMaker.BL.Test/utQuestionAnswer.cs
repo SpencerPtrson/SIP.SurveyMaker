@@ -23,7 +23,7 @@ namespace SIP.SurveyMaker.BL.Test
             Assert.IsTrue(results > 0);
         }
 
-        // The Delete also deletes all QuestionAnswer combos that have the question.
+        // Delete one specific combination of question and answer
         [Test]
         public async Task DeleteTest()
         {
@@ -34,6 +34,17 @@ namespace SIP.SurveyMaker.BL.Test
             Answer answer = answers.FirstOrDefault(c => c.Text == "No");
 
             int results = await QuestionAnswerManager.Delete(question.Id, answer.Id, true);
+            Assert.IsTrue(results > 0);
+        }
+
+        // The Delete also deletes all QuestionAnswer combos that have the question.
+        [Test]
+        public async Task DeleteByIdTest()
+        {
+            List<Question> questions = await QuestionManager.Load();
+            Question question = questions.FirstOrDefault(c => c.Text == "Does fire need oxygen?");
+
+            int results = await QuestionAnswerManager.DeleteByQuestionId(question.Id, true);
             Assert.IsTrue(results > 0);
         }
     }
