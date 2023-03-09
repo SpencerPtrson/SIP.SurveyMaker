@@ -149,6 +149,10 @@ namespace SIP.SurveyMaker.BL
                             {
                                 dc.tblQuestionAnswers.Remove(qa);
                             }
+                            foreach (tblResponse r in dc.tblResponses.Where(r => r.AnswerId == id))
+                            {
+                                dc.tblResponses.Remove(r);
+                            }
                             dc.tblAnswers.Remove(row);
 
                             results = dc.SaveChanges();
