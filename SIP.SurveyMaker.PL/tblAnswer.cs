@@ -10,4 +10,6 @@ public partial class tblAnswer
     public string Text { get; set; } = null!;
 
     public virtual ICollection<tblQuestionAnswer> tblQuestionAnswers { get; } = new List<tblQuestionAnswer>();
+
+    public virtual ICollection<tblResponse> tblResponses { get; } = new List<tblResponse>();
 }
