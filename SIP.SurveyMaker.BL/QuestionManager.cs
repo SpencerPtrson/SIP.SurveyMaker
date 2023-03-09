@@ -51,24 +51,25 @@ namespace SIP.SurveyMaker.BL
             {
                 using (SurveyMakerEntities dc = new SurveyMakerEntities())
                 {
-                    tblQuestion tblQuestion = dc.tblQuestions.Where(c => c.Id == id).FirstOrDefault();
                     Question question = new Question();
+                    List<Answer> answerList = await AnswerManager.LoadById(id);
 
-                    if (tblQuestion != null)
+                    await Task.Run(() =>
                     {
-                        question.Id = tblQuestion.Id;
-                        question.Text = tblQuestion.Text;
+                        tblQuestion tblQuestion = dc.tblQuestions.Where(c => c.Id == id).FirstOrDefault();
 
-                        foreach (tblQuestionAnswer qa in dc.tblQuestionAnswers.Where(qa => qa.QuestionId == id).ToList())
+                        if (tblQuestion != null)
                         {
-                            Answer answer = new Answer { Id = qa.Id, IsCorrect = qa.IsCorrect, Text = qa.Answer.Text };
-                            question.Answers.Add(answer);
+                            question.Id = tblQuestion.Id;
+                            question.Text = tblQuestion.Text;
+                            question.Answers = answerList;
+                            System.Diagnostics.Debug.WriteLine(question.Text);
                         }
+                        else
+                            throw new Exception("Could not find the row");
+                    });
 
-                        return question;
-                    }
-                    else
-                        throw new Exception("Could not find the row");
+                    return question;
                 }
             }
             catch (Exception ex)

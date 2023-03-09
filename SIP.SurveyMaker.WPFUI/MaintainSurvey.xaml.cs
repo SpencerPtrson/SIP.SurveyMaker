@@ -141,14 +141,15 @@ namespace SIP.SurveyMaker.WPFUI
 
         private async void LoadAnswers(Guid QuestionId)
         {
-            qaSet = await AnswerManager.LoadById(QuestionId);
+            Question question = await QuestionManager.LoadById(QuestionId);
+            List<Answer> answerSet = question.Answers;
 
             for (int i = 0; i < ucMaintainQAs.Length; i++)
             {
-                if (i < qaSet.Count)
+                if (i < answerSet.Count)
                 {
-                    ucMaintainQAs[i].DisplayAnswer(qaSet[i].Id);
-                    ucMaintainQAs[i].rbIsCorrect.IsChecked = qaSet[i].IsCorrect;
+                    ucMaintainQAs[i].DisplayAnswer(answerSet[i].Id);
+                    ucMaintainQAs[i].rbIsCorrect.IsChecked = answerSet[i].IsCorrect;
                 }    
                 else
                 {
