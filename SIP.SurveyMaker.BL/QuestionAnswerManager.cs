@@ -51,8 +51,6 @@ namespace SIP.SurveyMaker.BL
                     using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
                         tblQuestionAnswer row = dc.tblQuestionAnswers.FirstOrDefault(c => c.QuestionId == QuestionId && c.AnswerId == AnswerId);
-                        int results = 0;
-
                         if (row != null)
                         {
                             if (rollback) transaction = dc.Database.BeginTransaction();
