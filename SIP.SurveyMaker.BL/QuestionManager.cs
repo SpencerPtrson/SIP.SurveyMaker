@@ -39,10 +39,7 @@ namespace SIP.SurveyMaker.BL
                 });
                 return questions;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public async static Task<Question> LoadById(Guid id)
@@ -72,38 +69,34 @@ namespace SIP.SurveyMaker.BL
                     return question;
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public async static Task<int> Insert(Question question, bool rollback = false)
         {
             try
             {
-                IDbContextTransaction transaction = null;
-
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    IDbContextTransaction transaction = null;
 
-                    tblQuestion newrow = new tblQuestion();
-                    newrow.Id = Guid.NewGuid();
-                    newrow.Text = question.Text;
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                    {
+                        if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    dc.tblQuestions.Add(newrow);
-                    int results = dc.SaveChanges();
+                        tblQuestion newrow = new tblQuestion();
+                        newrow.Id = Guid.NewGuid();
+                        newrow.Text = question.Text;
 
-                    if (rollback) transaction.Rollback();
-
-                    return results;
-                }
+                        dc.tblQuestions.Add(newrow);
+                        results = dc.SaveChanges();
+                        if (rollback) transaction.Rollback();
+                    }
+                });
+                return results;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public async static Task<int> Insert(Guid id, String text, bool rollback = false)
@@ -113,71 +106,68 @@ namespace SIP.SurveyMaker.BL
                 Question question = new Question { Id = id, Text = text };
                 return await Insert(question, rollback);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public async static Task<int> Update(Question question, bool rollback = false)
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblQuestion row = dc.tblQuestions.FirstOrDefault(c => c.Id == question.Id);
-                    int results = 0;
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
-                        row.Text = question.Text;
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
+                        tblQuestion row = dc.tblQuestions.FirstOrDefault(c => c.Id == question.Id);
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
+                            row.Text = question.Text;
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+                        }
+                        else
+                            throw new Exception("Row was not found.");
                     }
-                    else
-                        throw new Exception("Row was not found.");
-                    return results;
-                }
+                });
+                return results;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public async static Task<int> Delete(Guid id, bool rollback = false)
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblQuestion row = dc.tblQuestions.FirstOrDefault(c => c.Id == id);
-                    int results = 0;
-
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
+                        tblQuestion row = dc.tblQuestions.FirstOrDefault(c => c.Id == id);
 
-                        foreach(tblQuestionAnswer qa in dc.tblQuestionAnswers.Where(qa => qa.QuestionId == id))
+                        if (row != null)
                         {
-                            dc.tblQuestionAnswers.Remove(qa);
-                        }
-                        dc.tblQuestions.Remove(row);
+                            if (rollback) transaction = dc.Database.BeginTransaction();
 
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
+                            foreach (tblQuestionAnswer qa in dc.tblQuestionAnswers.Where(qa => qa.QuestionId == id))
+                            {
+                                dc.tblQuestionAnswers.Remove(qa);
+                            }
+                            dc.tblQuestions.Remove(row);
+
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+                        }
+                        else
+                            throw new Exception("Row was not found.");
                     }
-                    else
-                        throw new Exception("Row was not found.");
-                    return results;
-                }
+                });
+                return results;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
         }
     }
 }
