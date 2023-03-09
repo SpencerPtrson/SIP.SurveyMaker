@@ -49,9 +49,9 @@ namespace SIP.SurveyMaker.WPFUI
             ucMaintainQA answer4 = new ucMaintainQA();
 
             answer1.Margin = new Thickness(100, -100, 0, 0);
-            answer2.Margin = new Thickness(100, -10, 0, 0);
-            answer3.Margin = new Thickness(100, 30, 0, 0);
-            answer4.Margin = new Thickness(100, 70, 0, 0);
+            answer2.Margin = new Thickness(100, -40, 0, 0);
+            answer3.Margin = new Thickness(100, 20, 0, 0);
+            answer4.Margin = new Thickness(100, 80, 0, 0);
 
             grdSurvey.Children.Add(answer1);
             grdSurvey.Children.Add(answer2);
@@ -99,7 +99,16 @@ namespace SIP.SurveyMaker.WPFUI
                     System.Diagnostics.Debug.WriteLine("Task.Run Started");
                     System.Diagnostics.Debug.WriteLine("Deleting Answers for Question: " + question.Text);
                     await QuestionAnswerManager.DeleteByQuestionId(question.Id);
+                    question.Answers.Clear();
+
+                    //System.Diagnostics.Debug.WriteLine("About to enter for-each");
+                    //foreach (ucMaintainQA ucAnswer in ucMaintainQAs)
+                    //{
+                    //    System.Diagnostics.Debug.WriteLine("Inside of For-each");
+                    //    question.Answers.Add(answers[ucAnswer.cboText.SelectedIndex]);
+                    //}
                 });
+
                 Reload();
             }
             catch (Exception ex) { throw ex; }

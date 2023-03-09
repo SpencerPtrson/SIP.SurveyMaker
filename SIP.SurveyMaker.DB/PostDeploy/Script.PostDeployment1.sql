@@ -10,6 +10,8 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-:r .\DefaultData\Question.sql
-:r .\DefaultData\Answer.sql
-:r .\DefaultData\QuestionAnswer.sql
+:r .\DefaultData\Questions.sql
+:r .\DefaultData\Answers.sql
+:r .\DefaultData\QuestionAnswers.sql
+:r .\DefaultData\Activations.sql
+:r .\DefaultData\Responses.sql

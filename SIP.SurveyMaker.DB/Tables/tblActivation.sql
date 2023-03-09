@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[tblActivation]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [QuestionId] UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES dbo.tblQuestion(Id), 
+    [StartDate] DATETIME NOT NULL, 
+    [EndDate] DATETIME NOT NULL, 
+    [ActivationCode] VARCHAR(6) NOT NULL
+)

@@ -78,11 +78,15 @@
     <Build Include="ForeignKeys\fkAnswerId.sql" />
     <Build Include="Functions\fnQuestionId.sql" />
     <Build Include="Functions\fnAnswerId.sql" />
+    <Build Include="Tables\tblActivation.sql" />
+    <Build Include="Tables\tblResponse.sql" />
+    <None Include="PostDeploy\DefaultData\Activations.sql" />
+    <None Include="PostDeploy\DefaultData\Responses.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PostDeploy\DefaultData\Question.sql" />
-    <None Include="PostDeploy\DefaultData\Answer.sql" />
-    <None Include="PostDeploy\DefaultData\QuestionAnswer.sql" />
+    <None Include="PostDeploy\DefaultData\Questions.sql" />
+    <None Include="PostDeploy\DefaultData\Answers.sql" />
+    <None Include="PostDeploy\DefaultData\QuestionAnswers.sql" />
     <None Include="local.publish.xml" />
   </ItemGroup>
   <ItemGroup>
