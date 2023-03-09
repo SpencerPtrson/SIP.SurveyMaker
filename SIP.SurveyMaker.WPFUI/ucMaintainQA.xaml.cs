@@ -79,16 +79,10 @@ namespace SIP.SurveyMaker.WPFUI
         }
 
 
-        //private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (cboText.SelectedIndex != -1)
-        //    {
-        //        Task.Run(async () =>
-        //        {
-        //            int results = await QuestionAnswerManager.Delete( , Answers[cboText.SelectedIndex].Id);
-        //        });
-        //    }
-        //    Reload();
-        //}
+        private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            cboText.SelectedIndex = -1;
+            rbIsCorrect.IsChecked = false;
+        }
     }
 }

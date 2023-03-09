@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,8 +26,6 @@ namespace SIP.SurveyMaker.WPFUI
         ucMaintainQA[] ucMaintainQAs = new ucMaintainQA[4];
         List<Question> questions;
         List<Answer> answers;
-        List<Answer> qaSet;
-
 
         public MaintainSurvey()
         {
@@ -49,7 +48,7 @@ namespace SIP.SurveyMaker.WPFUI
             ucMaintainQA answer3 = new ucMaintainQA();
             ucMaintainQA answer4 = new ucMaintainQA();
 
-            answer1.Margin = new Thickness(100, -50, 0, 0);
+            answer1.Margin = new Thickness(100, -100, 0, 0);
             answer2.Margin = new Thickness(100, -10, 0, 0);
             answer3.Margin = new Thickness(100, 30, 0, 0);
             answer4.Margin = new Thickness(100, 70, 0, 0);
@@ -79,37 +78,31 @@ namespace SIP.SurveyMaker.WPFUI
             Reload();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+
+                // POSSIBLE METHODS
+                // Delete all question-answer pairs and then insert new ones for the question
+                // Delete the question itself and then reinsert it, with the QuestionManager also inserting into the QuestionAnswer table
+                // Update the question answer list using the QuestionManager update, which deletes existing question-answer pairs and inserts the new ones
+
+                Question question = questions[cboQuestions.SelectedIndex];
+                System.Diagnostics.Debug.WriteLine("Question loaded");
+
+                // Testing method: Delete from the QuestionAnswer table and then insert the new combinations
+
+                await
                 Task.Run(async () =>
                 {
-                    Question question = questions[cboQuestions.SelectedIndex];
-                    List<Answer> answers = await AnswerManager.Load();
-
-                    // Delete pre-existing question answer pairs
-                    foreach(ucMaintainQA ucAnswer in ucMaintainQAs)
-                    {
-                        if (ucAnswer.cboText.SelectedIndex > 0)
-                        {
-                            int results = await QuestionAnswerManager.Delete(question.Id, answers[ucAnswer.cboText.SelectedIndex].Id);
-                        }
-                    }
-                    
-                    // Insert new QA 
-                    foreach(ucMaintainQA ucAnswer in ucMaintainQAs)
-                    {
-                        Answer answer = answers[ucAnswer.cboText.SelectedIndex];
-                        bool isCorrect = answer.IsCorrect;
-                        QuestionAnswerManager.Insert(question, answer, isCorrect);
-                    }
+                    System.Diagnostics.Debug.WriteLine("Task.Run Started");
+                    System.Diagnostics.Debug.WriteLine("Deleting Answers for Question: " + question.Text);
+                    await QuestionAnswerManager.DeleteByQuestionId(question.Id);
                 });
+                Reload();
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         private async void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)

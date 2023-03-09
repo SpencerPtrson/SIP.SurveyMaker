@@ -105,23 +105,24 @@ namespace SIP.SurveyMaker.BL
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("Attempting update on answer: " + answer.Text + " with GUID: " + answer.Id);
                 int results = 0;
                 await Task.Run(() =>
                 {
-                IDbContextTransaction transaction = null;
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
-                {
-                    tblAnswer row = dc.tblAnswers.FirstOrDefault(c => c.Id == answer.Id);
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
-                        row.Text = answer.Text;
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
+                        tblAnswer row = dc.tblAnswers.FirstOrDefault(c => c.Id == answer.Id);
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
+                            row.Text = answer.Text;
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+                        }
+                        else
+                            throw new Exception("Row was not found.");              
                     }
-                    else
-                        throw new Exception("Row was not found.");              
-                }
                 });
                 return results;
             }

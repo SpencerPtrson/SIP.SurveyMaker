@@ -27,6 +27,7 @@
             Stretch="Fill"
             HorizontalAlignment="Left" 
             Source="/delete.jpg"
+            MouseLeftButtonDown="imgDelete_MouseLeftButtonDown"
             />
 
     </Grid>

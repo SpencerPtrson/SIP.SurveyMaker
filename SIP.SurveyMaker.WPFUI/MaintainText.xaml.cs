@@ -46,6 +46,7 @@ namespace SIP.SurveyMaker.WPFUI
             this.Title = "Maintain " + screenMode.ToString() + "s";
             lblQA.Content = screenMode.ToString() + "s";
 
+            btnInsert.IsEnabled = false;
             btnUpdate.IsEnabled = false;
             btnDelete.IsEnabled = false;
         }
@@ -77,7 +78,8 @@ namespace SIP.SurveyMaker.WPFUI
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            switch(screenMode)
+            System.Diagnostics.Debug.WriteLine("Attempted update on index: " + cboText.SelectedIndex);
+            switch (screenMode)
             {
                 case ScreenMode.Question:
                     Question question = questions[cboText.SelectedIndex];
@@ -148,6 +150,14 @@ namespace SIP.SurveyMaker.WPFUI
             }
         }
 
+        private void txtText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtText.Text))
+                btnInsert.IsEnabled = true;
+            else
+                btnInsert.IsEnabled = false;
+        }
+
         private async void Reload()
         {
             cboText.ItemsSource = null;
@@ -181,7 +191,10 @@ namespace SIP.SurveyMaker.WPFUI
             cboText.DisplayMemberPath = "Text";
             cboText.SelectedValuePath = "Id";
             cboText.SelectedIndex = index;
+
+            System.Diagnostics.Debug.WriteLine("Current index: " +  cboText.SelectedIndex);
         }
+
 
     }
 }
