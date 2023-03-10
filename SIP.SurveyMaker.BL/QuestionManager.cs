@@ -85,6 +85,39 @@ namespace SIP.SurveyMaker.BL
             catch (Exception ex) { throw ex; }
         }
 
+        public async static Task<Question> LoadByActivationCode(String code)
+        {
+            try
+            {
+                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                {
+                    Question question = new Question();
+
+                    await Task.Run(async () =>
+                    {
+                        tblActivation tblActivation = dc.tblActivations.Where(at => at.ActivationCode == code).FirstOrDefault();
+
+                        if (tblActivation != null)
+                        {
+                            question = await QuestionManager.LoadById(tblActivation.QuestionId);
+
+                            Activation activation = new Activation();
+                            activation.ActivationCode = code;
+                            activation.StartDate = tblActivation.StartDate;
+                            activation.EndDate = tblActivation.EndDate;
+                            activation.QuestionId = question.Id;
+
+                            question.Activations.Add(activation);
+                        }
+                        else
+                            throw new Exception("Could not an activation with that code.");
+                    });
+                    return question;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public async static Task<int> Insert(Question question, bool rollback = false)
         {
             try

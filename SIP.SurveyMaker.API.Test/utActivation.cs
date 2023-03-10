@@ -37,8 +37,11 @@ namespace SIP.SurveyMaker.API.Test
         [TestMethod]
         public async Task UpdateTestAsync()
         {
+            List<Activation> activations = await ActivationManager.Load();
+            Activation activation = activations[0];
+            activation.ActivationCode = "TEST12";
 
+            await base.UpdateTestAsync<Activation>(new KeyValuePair<string, string>("ActivationCode", "DFNON1"), activation);
         }
-
     }
 }

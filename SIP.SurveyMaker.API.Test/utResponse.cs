@@ -5,6 +5,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SIP.SurveyMaker.BL;
+using SIP.SurveyMaker.BL.Models;
 using System.Drawing;
 using System.Reflection;
 
@@ -16,9 +18,15 @@ namespace SIP.SurveyMaker.API.Test
         [TestMethod]
         public async Task InsertTestAsync()
         {
-            //Color color = new Color { Description = "New Color" };
-            //color.Code = BitConverter.ToInt32(new byte[] { 255, 0, 0, 0x00 }, 0);
-            //await base.InsertTestAsync<Color>(color);
+            List<Question> questions = await QuestionManager.Load();
+            List<Answer> answers = await AnswerManager.Load();
+            Response response = new Response
+            {
+                QuestionId = questions[0].Id,
+                AnswerId = answers[0].Id,
+                ResponseDate = DateTime.Now
+            };
+            await base.InsertTestAsync<Response>(response);
         }
     }
 }
