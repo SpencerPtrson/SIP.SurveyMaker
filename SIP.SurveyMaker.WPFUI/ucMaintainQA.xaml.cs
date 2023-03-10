@@ -60,7 +60,8 @@ namespace SIP.SurveyMaker.WPFUI
 
         public async void DisplayAnswer(Guid AnswerId)
         {
-
+            System.Diagnostics.Debug.WriteLine("Display Answer Reached with AnswerId: " + AnswerId);
+            System.Diagnostics.Debug.WriteLine("AnswerCount: " + Answers.Count);
             int index = 0;
             for (int i = 0; i < Answers.Count; i++)
             {
@@ -77,7 +78,6 @@ namespace SIP.SurveyMaker.WPFUI
         {
             Answers = await AnswerManager.Load();
         }
-
 
         private void imgDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

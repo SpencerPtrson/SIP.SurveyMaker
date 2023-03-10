@@ -38,6 +38,7 @@ namespace SIP.SurveyMaker.WPFUI
             // Load question list as combobox source
             cboQuestions.ItemsSource = null;
             questions = await QuestionManager.Load();
+            answers = await AnswerManager.Load();
             cboQuestions.ItemsSource = questions;
             cboQuestions.DisplayMemberPath = "Text";
             cboQuestions.SelectedValuePath = "Id";
@@ -101,13 +102,17 @@ namespace SIP.SurveyMaker.WPFUI
                     await QuestionAnswerManager.DeleteByQuestionId(question.Id);
                     question.Answers.Clear();
 
-                    //System.Diagnostics.Debug.WriteLine("About to enter for-each");
-                    //foreach (ucMaintainQA ucAnswer in ucMaintainQAs)
-                    //{
-                    //    System.Diagnostics.Debug.WriteLine("Inside of For-each");
-                    //    question.Answers.Add(answers[ucAnswer.cboText.SelectedIndex]);
-                    //}
+                    System.Diagnostics.Debug.WriteLine("About to enter for-each");
+
                 });
+
+                foreach (ucMaintainQA ucAnswer in ucMaintainQAs)
+                {
+                    System.Diagnostics.Debug.WriteLine("Inside of For-each");
+                    if (ucAnswer.cboText.SelectedIndex > -1)
+                        await QuestionAnswerManager.Insert(question, answers[ucAnswer.cboText.SelectedIndex], (bool)ucAnswer.rbIsCorrect.IsChecked);
+                }
+
 
                 Reload();
             }

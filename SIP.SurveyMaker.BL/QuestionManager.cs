@@ -26,14 +26,23 @@ namespace SIP.SurveyMaker.BL
                         {
                             Question question = new Question { Id = q.Id, Text = q.Text };
 
+                            // Populate answer list
                             question.Answers = new List<Answer>();
-
                             foreach (tblQuestionAnswer qa in q.tblQuestionAnswers.ToList())
                             {
                                 Answer answer = new Answer { Id = qa.Id, IsCorrect = qa.IsCorrect, Text = qa.Answer.Text };
                                 question.Answers.Add(answer);
                             }
+
+                            // Populate activations
+                            question.Activations = new List<Activation>();
+                            foreach(tblActivation at in q.tblActivations)
+                            {
+                                Activation activation = new Activation { Id = at.Id, 
+                                                                            ActivationCode = at.ActivationCode };
+                            }
                             questions.Add(question);
+
                         }
                     }
                 });
