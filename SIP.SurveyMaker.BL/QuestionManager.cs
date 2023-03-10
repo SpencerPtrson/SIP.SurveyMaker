@@ -39,7 +39,10 @@ namespace SIP.SurveyMaker.BL
                             foreach(tblActivation at in q.tblActivations)
                             {
                                 Activation activation = new Activation { Id = at.Id, 
-                                                                            ActivationCode = at.ActivationCode };
+                                                                            ActivationCode = at.ActivationCode,
+                                                                            StartDate = at.StartDate,
+                                                                            EndDate = at.EndDate
+                                };
                             }
                             questions.Add(question);
 
