@@ -5,5 +5,6 @@
         public Guid Id { get; set; }
         public List<Answer> Answers { get; set; }
         public string Text { get; set; }
+        public List<Activation> Activations { get; set; }
     }
 }

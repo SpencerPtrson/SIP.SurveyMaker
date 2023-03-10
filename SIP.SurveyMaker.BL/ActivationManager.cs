@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 
 namespace SIP.SurveyMaker.BL
 {
-    public class QuestionAnswerManager
+    public class ActivationManager
     {
-        public async static Task<int> Insert(Question question, Answer answer, bool isCorrect, bool rollback = false)
+        public async static Task<int> Insert(Activation activation, bool rollback = false)
         {
             try
             {
                 int results = 0;
-
                 await Task.Run(() =>
                 {
-                    IDbContextTransaction transaction = null;
                     using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
+                        IDbContextTransaction transaction = null;
                         if (rollback) transaction = dc.Database.BeginTransaction();
 
-                        tblQuestionAnswer newrow = new tblQuestionAnswer();
+                        tblActivation newrow = new tblActivation();
                         newrow.Id = Guid.NewGuid();
-                        newrow.QuestionId = question.Id;
-                        newrow.AnswerId = answer.Id;
-                        newrow.IsCorrect = isCorrect;
+                        newrow.QuestionId = activation.QuestionId;
+                        newrow.StartDate = activation.StartDate;
+                        newrow.EndDate = activation.EndDate;
+                        newrow.ActivationCode = activation.ActivationCode;
 
-                        dc.tblQuestionAnswers.Add(newrow);
+                        dc.tblActivations.Add(newrow);
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -40,7 +40,7 @@ namespace SIP.SurveyMaker.BL
             catch (Exception ex) { throw ex; }
         }
 
-        public async static Task<int> Delete(Guid QuestionId, Guid AnswerId, bool rollback = false)
+        public async static Task<int> Update(Activation activation, bool rollback = false)
         {
             try
             {
@@ -50,16 +50,19 @@ namespace SIP.SurveyMaker.BL
                     IDbContextTransaction transaction = null;
                     using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        tblQuestionAnswer row = dc.tblQuestionAnswers.FirstOrDefault(c => c.QuestionId == QuestionId && c.AnswerId == AnswerId);
+                        tblActivation row = dc.tblActivations.FirstOrDefault(c => c.Id == activation.Id);
                         if (row != null)
                         {
                             if (rollback) transaction = dc.Database.BeginTransaction();
-                            dc.tblQuestionAnswers.Remove(row);
+                            row.StartDate = activation.StartDate;
+                            row.EndDate = activation.EndDate;
+                            row.ActivationCode = activation.ActivationCode;
+
                             results = dc.SaveChanges();
                             if (rollback) transaction.Rollback();
                         }
                         else
-                            throw new Exception("Row was not found.");
+                            throw new Exception("Row was not found.");              
                     }
                 });
                 return results;
@@ -67,7 +70,7 @@ namespace SIP.SurveyMaker.BL
             catch (Exception ex) { throw ex; }
         }
 
-        public async static Task<int> DeleteByQuestionId(Guid QuestionId, bool rollback = false)
+        public async static Task<int> Delete(Guid id, bool rollback = false)
         {
             try
             {
@@ -77,14 +80,13 @@ namespace SIP.SurveyMaker.BL
                     IDbContextTransaction transaction = null;
                     using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
-                        List<tblQuestionAnswer> rows = dc.tblQuestionAnswers.Where(c => c.QuestionId == QuestionId).ToList();
-                        if (rows != null)
+                        tblActivation row = dc.tblActivations.FirstOrDefault(at => at.Id == id);
+
+                        if (row != null)
                         {
                             if (rollback) transaction = dc.Database.BeginTransaction();
-                            foreach (tblQuestionAnswer row in rows)
-                            {
-                                dc.tblQuestionAnswers.Remove(row);
-                            }
+                            dc.tblActivations.Remove(row);
+
                             results = dc.SaveChanges();
                             if (rollback) transaction.Rollback();
                         }
