@@ -9,7 +9,6 @@ namespace SIP.SurveyMaker.BL.Test
         {
         }
 
-
         [Test]
         public async Task InsertTest()
         {

@@ -45,7 +45,6 @@ namespace SIP.SurveyMaker.BL.Test
             Assert.IsTrue(results > 0);
         }
 
-
         // The Delete also deletes all QuestionAnswer combos that have the answer.
         [Test]
         public async Task DeleteTest()

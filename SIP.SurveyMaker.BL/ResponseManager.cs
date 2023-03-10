@@ -11,7 +11,7 @@ namespace SIP.SurveyMaker.BL
 {
     public class ResponseManager
     {
-        public async static Task<List<Response>> LoadById(Guid QuestionId)
+        public async static Task<List<Response>> LoadByQuestionId(Guid QuestionId)
         {
             try
             {
