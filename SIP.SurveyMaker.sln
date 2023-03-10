@@ -16,11 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.BL", "SIP.SurveyMaker.BL\SIP.SurveyMaker.BL.csproj", "{E6BCD7EF-0D89-4060-AF22-35308F46FE71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.BL", "SIP.SurveyMaker.BL\SIP.SurveyMaker.BL.csproj", "{E6BCD7EF-0D89-4060-AF22-35308F46FE71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.WPFUI", "SIP.SurveyMaker.WPFUI\SIP.SurveyMaker.WPFUI.csproj", "{59A16470-9E0D-4BA9-A36D-6C7E3ED7357F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.WPFUI", "SIP.SurveyMaker.WPFUI\SIP.SurveyMaker.WPFUI.csproj", "{59A16470-9E0D-4BA9-A36D-6C7E3ED7357F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.BL.Test", "SIP.SurveyMaker.BL.Test\SIP.SurveyMaker.BL.Test.csproj", "{5FBACD16-1D1B-4841-94DC-9EA52D9B7FA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.BL.Test", "SIP.SurveyMaker.BL.Test\SIP.SurveyMaker.BL.Test.csproj", "{5FBACD16-1D1B-4841-94DC-9EA52D9B7FA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.API", "SIP.SurveyMaker.API\SIP.SurveyMaker.API.csproj", "{3BC7861C-9EA5-4514-BF2B-385967346D86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{5FBACD16-1D1B-4841-94DC-9EA52D9B7FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FBACD16-1D1B-4841-94DC-9EA52D9B7FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FBACD16-1D1B-4841-94DC-9EA52D9B7FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BC7861C-9EA5-4514-BF2B-385967346D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC7861C-9EA5-4514-BF2B-385967346D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC7861C-9EA5-4514-BF2B-385967346D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC7861C-9EA5-4514-BF2B-385967346D86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

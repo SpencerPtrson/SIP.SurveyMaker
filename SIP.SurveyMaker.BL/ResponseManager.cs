@@ -15,30 +15,30 @@ namespace SIP.SurveyMaker.BL
         {
             try
             {
-                List<Answer> answers = new List<Answer>();
+                List<Response> responses = new List<Response>();
 
                 await Task.Run(() =>
                 {
                     using (SurveyMakerEntities dc = new SurveyMakerEntities())
                     {
                         // Get a list of question / answer pairs with the given question id
-                        List<tblQuestionAnswer> tblQuestionAnswers = dc.tblQuestionAnswers.Where(c => c.QuestionId == QuestionId).ToList();
+                        List<tblResponse> tblResponses = dc.tblResponses.Where(c => c.QuestionId == QuestionId).ToList();
 
                         // Iterate through that list and add the corresponding tblAnswer value to "answers"
-                        foreach (tblQuestionAnswer qa in tblQuestionAnswers)
+                        foreach (tblResponse r in tblResponses)
                         {
-                            tblAnswer tblAnswer = dc.tblAnswers.Where(d => d.Id == qa.AnswerId).FirstOrDefault();
-                            Answer answer = new Answer()
+                            Response response = new Response()
                             {
-                                Id = tblAnswer.Id,
-                                Text = tblAnswer.Text,
-                                IsCorrect = qa.IsCorrect
+                                Id = r.Id,
+                                QuestionId = r.QuestionId,
+                                AnswerId = r.AnswerId,
+                                ResponseDate = r.ResponseDate
                             };
-                            answers.Add(answer);
+                            responses.Add(response);
                         } 
                     }
                 });
-                return answers;
+                return responses;
             }
             catch (Exception ex) { throw ex; }
         }
