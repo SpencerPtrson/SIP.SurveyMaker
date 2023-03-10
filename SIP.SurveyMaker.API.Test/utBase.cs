@@ -15,7 +15,6 @@ namespace SIP.SurveyMaker.API.Test
         {
             // Sharing the extra setup
             return base.CreateHost(builder);
-
         }
     }
 

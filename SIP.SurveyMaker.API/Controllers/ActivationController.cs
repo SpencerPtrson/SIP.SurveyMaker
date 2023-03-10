@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SIP.SurveyMaker.BL;
+using SIP.SurveyMaker.BL.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,22 +12,45 @@ namespace SIP.SurveyMaker.API.Controllers
     {
         // GET: api/<ActivationController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Activation>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(await ActivationManager.Load());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         // POST api/<ActivationController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("{rollback?}")]
+        public async Task<IActionResult> Post([FromBody] Activation activation, bool rollback = false)
         {
+            try
+            {
+                await ActivationManager.Insert(activation, rollback);
+                return Ok(activation.Id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         // PUT api/<ActivationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id}/{rollback?}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] Activation activation, bool rollback = false)
         {
+            try
+            {
+                return Ok(await ActivationManager.Update(activation, rollback));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
-
     }
 }
