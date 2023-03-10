@@ -26,11 +26,16 @@ namespace SIP.SurveyMaker.API.Test
         public async Task InsertTestAsync()
         {
             List<Question> questions = await QuestionManager.Load();
+            Question question = questions.FirstOrDefault(c => c.Text == "Does fire need oxygen?");
 
-            Activation activation = new Activation { QuestionId = questions[0].Id, 
-                                                    StartDate = DateTime.Now, 
-                                                    EndDate = DateTime.Now, 
-                                                    ActivationCode = "AABBCC"};
+            Activation activation = new Activation
+            {
+                QuestionId = question.Id,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                ActivationCode = "AADDEE"
+            };
+
             await base.InsertTestAsync<Activation>(activation);
         }
 

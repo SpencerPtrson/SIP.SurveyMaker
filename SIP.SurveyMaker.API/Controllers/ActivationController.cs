@@ -26,10 +26,11 @@ namespace SIP.SurveyMaker.API.Controllers
 
         // POST api/<ActivationController>
         [HttpPost("{rollback?}")]
-        public async Task<IActionResult> Post([FromBody] Activation activation, bool rollback = false)
+        public async Task<ActionResult> Post([FromBody] Activation activation, bool rollback = false)
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("About to try ActivationManager.Insert");
                 await ActivationManager.Insert(activation, rollback);
                 return Ok(activation.Id);
             }
