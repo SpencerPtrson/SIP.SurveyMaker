@@ -101,9 +101,6 @@ namespace SIP.SurveyMaker.WPFUI
                     System.Diagnostics.Debug.WriteLine("Deleting Answers for Question: " + question.Text);
                     await QuestionAnswerManager.DeleteByQuestionId(question.Id);
                     question.Answers.Clear();
-
-                    System.Diagnostics.Debug.WriteLine("About to enter for-each");
-
                 });
 
                 foreach (ucMaintainQA ucAnswer in ucMaintainQAs)
@@ -112,8 +109,6 @@ namespace SIP.SurveyMaker.WPFUI
                     if (ucAnswer.cboText.SelectedIndex > -1)
                         await QuestionAnswerManager.Insert(question, answers[ucAnswer.cboText.SelectedIndex], (bool)ucAnswer.rbIsCorrect.IsChecked);
                 }
-
-
                 Reload();
             }
             catch (Exception ex) { throw ex; }

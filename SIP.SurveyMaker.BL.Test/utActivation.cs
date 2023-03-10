@@ -9,6 +9,26 @@ namespace SIP.SurveyMaker.BL.Test
         public void Setup()
         {
         }
+
+        [Test]
+        public async Task LoadTest()
+        {
+            var task = await ActivationManager.Load();
+            List<Activation> activations = task;
+            Assert.AreEqual(3, activations.ToList().Count);
+        }
+
+        [Test]
+        public async Task LoadByQuestionIdTest()
+        {
+            List<Question> questions = await QuestionManager.Load();
+            Question question = questions.FirstOrDefault(c => c.Text == "Does fire need oxygen?");
+
+            var task = await ActivationManager.LoadByQuestionId(question.Id);
+            List<Activation> activations = task;
+            Assert.AreEqual(1, activations.ToList().Count);
+        }
+
         [Test]
         public async Task InsertTest()
         {
@@ -28,27 +48,8 @@ namespace SIP.SurveyMaker.BL.Test
         [Test]
         public async Task UpdateTest()
         {
-            List<Activation> activations = new List<Activation>();
+            List<Activation> activations = await ActivationManager.Load();
             int results = 0;
-
-            await Task.Run(() =>
-            {
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
-                {
-                    foreach (tblActivation tblActivation in dc.tblActivations.ToList())
-                    {
-                        Activation activation = new Activation
-                        {
-                            Id = tblActivation.Id,
-                            QuestionId = tblActivation.Id,
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now,
-                            ActivationCode = tblActivation.ActivationCode,
-                        };
-                        activations.Add(activation);
-                    }
-                }
-            });
 
             Activation at = activations.FirstOrDefault(a => a.ActivationCode == "DFNON1");
             at.ActivationCode = "123456";
@@ -60,26 +61,9 @@ namespace SIP.SurveyMaker.BL.Test
         [Test]
         public async Task DeleteTest()
         {
-            List<Activation> activations = new List<Activation>();
+            List<Activation> activations = await ActivationManager.Load();
             int results = 0;
-            await Task.Run(() =>
-            {
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
-                {
-                    foreach (tblActivation tblActivation in dc.tblActivations.ToList())
-                    {
-                        Activation activation = new Activation
-                        {
-                            Id = tblActivation.Id,
-                            QuestionId = tblActivation.Id,
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now,
-                            ActivationCode = tblActivation.ActivationCode,
-                        };
-                        activations.Add(activation);
-                    }
-                }
-            });
+
             Activation activation = activations.FirstOrDefault(at => at.ActivationCode == "DFNON1");
             results = await ActivationManager.Delete(activation.Id, true);
             Assert.IsTrue(results > 0);

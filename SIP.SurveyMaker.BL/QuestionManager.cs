@@ -45,7 +45,6 @@ namespace SIP.SurveyMaker.BL
                                 };
                             }
                             questions.Add(question);
-
                         }
                     }
                 });
@@ -62,6 +61,7 @@ namespace SIP.SurveyMaker.BL
                 {
                     Question question = new Question();
                     List<Answer> answerList = await AnswerManager.LoadById(id);
+                    List<Activation> activationList = await ActivationManager.LoadByQuestionId(id);
 
                     await Task.Run(() =>
                     {
@@ -72,6 +72,7 @@ namespace SIP.SurveyMaker.BL
                             question.Id = tblQuestion.Id;
                             question.Text = tblQuestion.Text;
                             question.Answers = answerList;
+                            question.Activations = activationList;
                             System.Diagnostics.Debug.WriteLine(question.Text);
                         }
                         else

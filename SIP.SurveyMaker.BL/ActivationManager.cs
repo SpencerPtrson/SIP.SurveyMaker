@@ -11,6 +11,65 @@ namespace SIP.SurveyMaker.BL
 {
     public class ActivationManager
     {
+        public async static Task<List<Activation>> Load()
+        {
+            try
+            {
+                List<Activation> activations = new List<Activation>();
+                await Task.Run(() =>
+                {
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                    {
+                        foreach (tblActivation tblActivation in dc.tblActivations.ToList())
+                        {
+                            Activation activation = new Activation
+                            {
+                                Id = tblActivation.Id,
+                                QuestionId = tblActivation.Id,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now,
+                                ActivationCode = tblActivation.ActivationCode,
+                            };
+                            activations.Add(activation);
+                        }
+                    }
+                });
+                return activations;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public async static Task<List<Activation>> LoadByQuestionId(Guid QuestionId)
+        {
+            try
+            {
+                List<Activation> activations = new List<Activation>();
+                await Task.Run(() =>
+                {
+                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                    {
+                        List<tblQuestion> tblQuestions = dc.tblQuestions.Where(c => c.Id ==  QuestionId).ToList();
+
+                        foreach (tblQuestion q in tblQuestions)
+                        {
+                            tblActivation tblActivation = dc.tblActivations.Where(d => d.QuestionId == q.Id).FirstOrDefault();
+                            Activation activation = new Activation()
+                            {
+                                Id = tblActivation.Id,
+                                QuestionId = tblActivation.Id,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now,
+                                ActivationCode = tblActivation.ActivationCode
+                            };
+                            activations.Add(activation);
+                        }
+                    }
+                });
+                return activations;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public async static Task<int> Insert(Activation activation, bool rollback = false)
         {
             try
