@@ -22,9 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.WPFUI", "SI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.BL.Test", "SIP.SurveyMaker.BL.Test\SIP.SurveyMaker.BL.Test.csproj", "{5FBACD16-1D1B-4841-94DC-9EA52D9B7FA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.API", "SIP.SurveyMaker.API\SIP.SurveyMaker.API.csproj", "{3BC7861C-9EA5-4514-BF2B-385967346D86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.API", "SIP.SurveyMaker.API\SIP.SurveyMaker.API.csproj", "{3BC7861C-9EA5-4514-BF2B-385967346D86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIP.SurveyMaker.API.Test", "SIP.SurveyMaker.API.Test\SIP.SurveyMaker.API.Test.csproj", "{5EFFADA7-81AB-488A-90BE-C6FA939ADCE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.SurveyMaker.API.Test", "SIP.SurveyMaker.API.Test\SIP.SurveyMaker.API.Test.csproj", "{5EFFADA7-81AB-488A-90BE-C6FA939ADCE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIP.Utility", "SIP.Utility\SIP.Utility.csproj", "{6FAB1954-3594-426A-A700-4F552DA7180C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +72,10 @@ Global
 		{5EFFADA7-81AB-488A-90BE-C6FA939ADCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EFFADA7-81AB-488A-90BE-C6FA939ADCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EFFADA7-81AB-488A-90BE-C6FA939ADCE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FAB1954-3594-426A-A700-4F552DA7180C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FAB1954-3594-426A-A700-4F552DA7180C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FAB1954-3594-426A-A700-4F552DA7180C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FAB1954-3594-426A-A700-4F552DA7180C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -75,25 +75,23 @@ namespace SIP.SurveyMaker.BL
             try
             {
                 int results = 0;
-                await Task.Run(() =>
+                IDbContextTransaction? transaction = null;
+
+                using (SurveyMakerEntities dc = new SurveyMakerEntities())
                 {
-                    using (SurveyMakerEntities dc = new SurveyMakerEntities())
-                    {
-                        IDbContextTransaction transaction = null;
-                        if (rollback) transaction = dc.Database.BeginTransaction();
+                    if (rollback) transaction = await dc.Database.BeginTransactionAsync().ConfigureAwait(false);
 
-                        tblActivation newrow = new tblActivation();
-                        newrow.Id = Guid.NewGuid();
-                        newrow.QuestionId = activation.QuestionId;
-                        newrow.StartDate = activation.StartDate;
-                        newrow.EndDate = activation.EndDate;
-                        newrow.ActivationCode = activation.ActivationCode;
+                    tblActivation newrow = new tblActivation();
+                    newrow.Id = Guid.NewGuid();
+                    newrow.QuestionId = activation.QuestionId;
+                    newrow.StartDate = activation.StartDate;
+                    newrow.EndDate = activation.EndDate;
+                    newrow.ActivationCode = activation.ActivationCode;
 
-                        dc.tblActivations.Add(newrow);
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
-                    }
-                });
+                    dc.tblActivations.Add(newrow);
+                    results = await dc.SaveChangesAsync().ConfigureAwait(false);
+                    if (transaction != null) await transaction.RollbackAsync().ConfigureAwait(false);
+                }
                 return results;
             }
             catch (Exception ex) { throw ex; }

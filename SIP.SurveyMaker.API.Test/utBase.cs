@@ -59,14 +59,15 @@ namespace SIP.SurveyMaker.API.Test
         [TestMethod]
         public async Task InsertTestAsync<T>(T item)
         {
-            Console.WriteLine("Item: " + item);
             bool rollback = true;
             string serializedObject = JsonConvert.SerializeObject(item);
-            Console.WriteLine("Serialized Object: " + serializedObject);
+            Console.WriteLine(serializedObject);
 
             var content = new StringContent(serializedObject);
+            Console.WriteLine("Content:" + content);
+
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = client.PostAsync(typeof(T).Name + "/" + rollback, content).Result; 
+            HttpResponseMessage response = client.PostAsync(typeof(T).Name + "/" + rollback, content).Result;
             Console.WriteLine(response);
 
             string result = response.Content.ReadAsStringAsync().Result;
@@ -75,7 +76,6 @@ namespace SIP.SurveyMaker.API.Test
             // Remove the \s from the result
             result = result.Replace("\"", "");
             Guid guid = Guid.Parse(result);
-
             Console.WriteLine("Guid is: " + guid);
             // Assert that the result guid is not the same as an empty guid 00000000...
             Assert.IsFalse(guid.Equals(Guid.Empty));

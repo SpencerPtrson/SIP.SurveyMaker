@@ -31,7 +31,6 @@ namespace SIP.SurveyMaker.API.Controllers
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("About to try ActivationManager.Insert");
                 await ActivationManager.Insert(activation, rollback);
                 return Ok(activation.Id);
             }
