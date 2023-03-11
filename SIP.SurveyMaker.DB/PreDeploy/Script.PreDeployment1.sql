@@ -13,3 +13,5 @@
 DROP TABLE IF EXISTS tblQuestion
 DROP TABLE IF EXISTS tblAnswer
 DROP TABLE IF EXISTS tblQuestionAnswer
+DROP TABLE IF EXISTS tblActivation
+DROP TABLE IF EXISTS tblResponse
