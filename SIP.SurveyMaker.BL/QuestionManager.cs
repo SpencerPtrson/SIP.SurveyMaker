@@ -100,17 +100,9 @@ namespace SIP.SurveyMaker.BL
                         if (tblActivation != null)
                         {
                             question = await QuestionManager.LoadById(tblActivation.QuestionId);
-
-                            Activation activation = new Activation();
-                            activation.ActivationCode = code;
-                            activation.StartDate = tblActivation.StartDate;
-                            activation.EndDate = tblActivation.EndDate;
-                            activation.QuestionId = question.Id;
-
-                            question.Activations.Add(activation);
                         }
                         else
-                            throw new Exception("Could not an activation with that code.");
+                            throw new Exception("Could not find that activation code.");
                     });
                     return question;
                 }

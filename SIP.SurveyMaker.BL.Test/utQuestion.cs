@@ -18,6 +18,31 @@ namespace SIP.SurveyMaker.BL.Test
         }
 
         [Test]
+        public async Task LoadById()
+        {
+            List<Question> questions = await QuestionManager.Load();
+            Console.WriteLine(questions.Count);
+            Console.WriteLine(questions[0].Text);
+            Guid QuestionId = questions[0].Id;
+            Console.WriteLine("Guid: " +  QuestionId);
+
+            var task = await QuestionManager.LoadById(QuestionId);
+            Console.WriteLine(task.Text);
+
+            Assert.AreEqual(task.Id, questions[0].Id);
+        }
+
+        [Test]
+        public async Task LoadByActivationCode()
+        {
+            List<Question> questions = await QuestionManager.Load();
+
+            var task = await QuestionManager.LoadByActivationCode("DFNON1");
+            Question question = task;
+            Assert.AreEqual(1, question.Activations.Count);
+        }
+
+        [Test]
         public async Task InsertTest()
         {
             int results = await QuestionManager.Insert(new Question { Text = "Testing" }, true);
