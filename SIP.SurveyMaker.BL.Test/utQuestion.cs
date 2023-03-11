@@ -22,14 +22,17 @@ namespace SIP.SurveyMaker.BL.Test
         {
             List<Question> questions = await QuestionManager.Load();
             Console.WriteLine(questions.Count);
-            Console.WriteLine(questions[0].Text);
+
+            Question question = questions.Where(c => c.Text == "Does fire need oxygen?").FirstOrDefault();
+            Console.WriteLine(question.Text);
+
             Guid QuestionId = questions[0].Id;
             Console.WriteLine("Guid: " +  QuestionId);
 
-            var task = await QuestionManager.LoadById(QuestionId);
+            var task = await QuestionManager.LoadById(question.Id);
             Console.WriteLine(task.Text);
 
-            Assert.AreEqual(task.Id, questions[0].Id);
+            Assert.AreEqual(task.Id, question.Id);
         }
 
         //[Test]

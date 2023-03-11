@@ -78,7 +78,6 @@ namespace SIP.SurveyMaker.BL
                         else
                             throw new Exception("Could not find the row");
                     });
-
                     return question;
                 }
             }
