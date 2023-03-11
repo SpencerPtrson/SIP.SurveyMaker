@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SIP.SurveyMaker.BL.Models;
+using SIP.SurveyMaker.BL;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,31 +10,61 @@ namespace SIP.SurveyMaker.API.Controllers
     [ApiController]
     public class QuestionController : ControllerBase
     {
-        // GET: api/<ActivationController>
+        // GET: api/<QuestionController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Question>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(await QuestionManager.Load());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // GET api/<ActivationController>/5
+        // GET api/<QuestionController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<IEnumerable<Question>>> Get(Guid id)
         {
-            return "value";
+            try
+            {
+                return Ok(await QuestionManager.LoadById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // POST api/<ActivationController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // POST api/<QuestionController>
+        [HttpPost("{rollback?}")]
+        public async Task<ActionResult> Post([FromBody] Question question, bool rollback = false)
         {
+            try
+            {
+                await QuestionManager.Insert(question, rollback);
+                return Ok(question.Id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // PUT api/<ActivationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<QuestionController>/5
+        [HttpPut("{id}/{rollback?}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] Question question, bool rollback = false)
         {
+            try
+            {
+                return Ok(await QuestionManager.Update(question, rollback));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
-
     }
 }

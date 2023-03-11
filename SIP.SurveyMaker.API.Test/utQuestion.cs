@@ -23,6 +23,13 @@ namespace SIP.SurveyMaker.API.Test
         }
 
         [TestMethod]
+        public async Task LoadByIdTestAsync()
+        {
+            await base.LoadByIdTestAsync<Question>(new KeyValuePair<string, string> ("Text", "Does fire need oxygen?"));
+            // The base class has the assert.stuff, so it's not needed here
+        }
+
+        [TestMethod]
         public async Task InsertTestAsync()
         {
             List<Activation> activations = await ActivationManager.Load();
@@ -31,18 +38,13 @@ namespace SIP.SurveyMaker.API.Test
             await base.InsertTestAsync<Question>(question);
         }
 
-        //[TestMethod]
-        //public async Task UpdateTestAsync()
-        //{
-        //    Color color = new Color { Description = "Updated Color" };
-        //    color.Code = BitConverter.ToInt32(new byte[] { 255, 0, 0, 0x00 }, 0);
-        //    await base.UpdateTestAsync<Color>(new KeyValuePair<string, string>("Description", "Cornflower Blue"), color);
-        //}
-
-        //[TestMethod]
-        //public async Task DeleteTestAsync()
-        //{
-        //    await base.DeleteTestAsync<Color>(new KeyValuePair<string, string>("Description", "Cornflower Blue"));
-        //}
+        [TestMethod]
+        public async Task UpdateTestAsync()
+        {
+            List<Activation> activations = await ActivationManager.Load();
+            List<Answer> answers = await AnswerManager.Load();
+            Question question = new Question { Text = "Test", Activations = activations, Answers = answers };
+            await base.UpdateTestAsync<Question>(new KeyValuePair<string, string>("Text", "Does fire need oxygen?"), question);
+        }
     }
 }
