@@ -35,13 +35,13 @@ namespace SIP.SurveyMaker.BL.Test
             Assert.AreEqual(task.Id, question.Id);
         }
 
-        //[Test]
-        //public async Task LoadByActivationCode()
-        //{
-        //    var task = await QuestionManager.LoadByActivationCode("DFNON1");
-        //    List<Activation> activations = task;
-        //    Assert.AreEqual(1, activations.Count);
-        //}
+        [Test]
+        public async Task LoadByActivationCode()
+        {
+            var task = await QuestionManager.LoadByActivationCode("DFNON1");
+            List<Activation> activations = task;
+            Assert.AreEqual(1, activations.Count);
+        }
 
         [Test]
         public async Task InsertTest()

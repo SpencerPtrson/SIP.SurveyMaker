@@ -84,34 +84,36 @@ namespace SIP.SurveyMaker.BL
             catch (Exception ex) { throw ex; }
         }
 
-        //public async static Task<List<Activation>> LoadByActivationCode(String code)
-        //{
-        //    try
-        //    {
-        //        using (SurveyMakerEntities dc = new SurveyMakerEntities())
-        //        {
-        //            Question question = new Question();
-        //            List<Activation> activations = new List<Activation>();
+        public async static Task<List<Activation>> LoadByActivationCode(String code)
+        {
+            try
+            {
+                List<Activation> activations = new List<Activation>();
 
-        //            await Task.Run(async () =>
-        //            {
-        //                tblActivation tblActivation = dc.tblActivations.Where(at => at.ActivationCode == code).FirstOrDefault();
+                using (SurveyMakerEntities dc = new SurveyMakerEntities())
+                {
+                    await Task.Run(() =>
+                    {
+                        List<tblActivation> tblActivations = dc.tblActivations.Where(at => at.ActivationCode == code).ToList();
 
-        //                if (tblActivation != null)
-        //                {
-        //                    question = await QuestionManager.LoadById(tblActivation.QuestionId);
-                            
-        //                    foreach(Activation activation in question.Activations)
-        //                        activations.Add(activation);
-        //                }
-        //                else
-        //                    throw new Exception("Could not find that activation code.");
-        //            });
-        //            return activations;
-        //        }
-        //    }
-        //    catch (Exception ex) { throw ex; }
-        //}
+                        foreach(tblActivation t in tblActivations)
+                        {
+                            Activation activation = new Activation
+                            {
+                                Id = t.Id,
+                                ActivationCode = t.ActivationCode,
+                                StartDate = t.StartDate,
+                                EndDate = t.EndDate,
+                                QuestionId = t.QuestionId
+                            };
+                            activations.Add(activation);
+                        }
+                    });
+                }
+                return activations;
+            }
+            catch (Exception ex) { throw ex; }
+        }
 
         public async static Task<int> Insert(Question question, bool rollback = false)
         {
