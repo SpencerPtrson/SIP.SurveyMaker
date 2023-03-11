@@ -85,30 +85,34 @@ namespace SIP.SurveyMaker.BL
             catch (Exception ex) { throw ex; }
         }
 
-        public async static Task<Question> LoadByActivationCode(String code)
-        {
-            try
-            {
-                using (SurveyMakerEntities dc = new SurveyMakerEntities())
-                {
-                    Question question = new Question();
+        //public async static Task<List<Activation>> LoadByActivationCode(String code)
+        //{
+        //    try
+        //    {
+        //        using (SurveyMakerEntities dc = new SurveyMakerEntities())
+        //        {
+        //            Question question = new Question();
+        //            List<Activation> activations = new List<Activation>();
 
-                    await Task.Run(async () =>
-                    {
-                        tblActivation tblActivation = dc.tblActivations.Where(at => at.ActivationCode == code).FirstOrDefault();
+        //            await Task.Run(async () =>
+        //            {
+        //                tblActivation tblActivation = dc.tblActivations.Where(at => at.ActivationCode == code).FirstOrDefault();
 
-                        if (tblActivation != null)
-                        {
-                            question = await QuestionManager.LoadById(tblActivation.QuestionId);
-                        }
-                        else
-                            throw new Exception("Could not find that activation code.");
-                    });
-                    return question;
-                }
-            }
-            catch (Exception ex) { throw ex; }
-        }
+        //                if (tblActivation != null)
+        //                {
+        //                    question = await QuestionManager.LoadById(tblActivation.QuestionId);
+                            
+        //                    foreach(Activation activation in question.Activations)
+        //                        activations.Add(activation);
+        //                }
+        //                else
+        //                    throw new Exception("Could not find that activation code.");
+        //            });
+        //            return activations;
+        //        }
+        //    }
+        //    catch (Exception ex) { throw ex; }
+        //}
 
         public async static Task<int> Insert(Question question, bool rollback = false)
         {
