@@ -87,6 +87,7 @@ namespace SIP.SurveyMaker.BL
                     newrow.StartDate = activation.StartDate;
                     newrow.EndDate = activation.EndDate;
                     newrow.ActivationCode = activation.ActivationCode;
+                    activation.Id = newrow.Id;
 
                     dc.tblActivations.Add(newrow);
                     results = await dc.SaveChangesAsync().ConfigureAwait(false);

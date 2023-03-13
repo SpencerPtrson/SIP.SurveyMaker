@@ -60,6 +60,7 @@ namespace SIP.SurveyMaker.BL
                         newrow.QuestionId = response.QuestionId;
                         newrow.AnswerId = response.AnswerId;
                         newrow.ResponseDate = response.ResponseDate;
+                        response.Id = newrow.Id;
 
                         dc.tblResponses.Add(newrow);
                         results = dc.SaveChanges();

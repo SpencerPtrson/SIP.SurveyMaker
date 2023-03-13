@@ -131,6 +131,7 @@ namespace SIP.SurveyMaker.BL
                         tblQuestion newrow = new tblQuestion();
                         newrow.Id = Guid.NewGuid();
                         newrow.Text = question.Text;
+                        question.Id = newrow.Id;
 
                         dc.tblQuestions.Add(newrow);
                         results = dc.SaveChanges();
