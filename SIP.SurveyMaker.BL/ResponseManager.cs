@@ -13,8 +13,7 @@ namespace SIP.SurveyMaker.BL
     {
         public async static Task<List<Response>> LoadByQuestionId(Guid QuestionId)
         {
-            try
-            {
+            try {
                 List<Response> responses = new List<Response>();
 
                 await Task.Run(() =>
